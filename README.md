@@ -1,4 +1,4 @@
-# Hierarchical Generalised Category Discovery — Code Submission
+# Predicting Species Splits: A Challenging Fine-Grained Benchmark for Category Discovery
 
 This folder contains the minimal source needed to (1) train the four
 hierarchical (coarse-label) GCD backbones reported in the paper, and (2) run
