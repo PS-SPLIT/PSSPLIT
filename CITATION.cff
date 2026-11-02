@@ -1,0 +1,29 @@
+cff-version: 1.2.0
+message: "If you use PS-SPLIT, please cite the paper below."
+title: "PS-SPLIT: Predicting Species Splits"
+license: MIT
+repository-code: "https://github.com/PS-SPLIT/PSSPLIT"
+url: "https://www.kaggle.com/datasets/pssplits/ps-splits"
+authors:
+  - family-names: Lange
+    given-names: Christian
+  - family-names: Haurum
+    given-names: Joakim Bruslund
+  - family-names: Zhao
+    given-names: Bingchen
+  - family-names: Mac Aodha
+    given-names: Oisin
+preferred-citation:
+  type: conference-paper
+  title: "Predicting Species Splits: A Challenging Fine-Grained Benchmark for Category Discovery"
+  authors:
+    - family-names: Lange
+      given-names: Christian
+    - family-names: Haurum
+      given-names: Joakim Bruslund
+    - family-names: Zhao
+      given-names: Bingchen
+    - family-names: Mac Aodha
+      given-names: Oisin
+  collection-title: "Advances in Neural Information Processing Systems (NeurIPS), Evaluations and Datasets Track"
+  year: 2026
