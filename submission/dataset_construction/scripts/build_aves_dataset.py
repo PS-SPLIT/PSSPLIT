@@ -17,7 +17,7 @@ Output:
   - aves_metadata_small/      (filtered metadata: dataset_pass=True rows only)
 
 Usage:
-    /disk/scratch_fast/chris_2/subspecies_env/bin/python3 build_aves_dataset.py \\
+    python build_aves_dataset.py \\
         --aves_splits aves_splits.json \\
         --aves_controls aves_controls.json \\
         --metadata_dir aves_metadata \\

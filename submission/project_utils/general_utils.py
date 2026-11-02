@@ -281,7 +281,7 @@ class ClassificationPredSaver(object):
 def get_acc_auroc_curves(logdir):
 
     """
-    :param logdir: Path to logs: E.g '/work/sagar/open_set_recognition/methods/ARPL/log/(12.03.2021_|_32.570)/'
+    :param logdir: Path to logs: E.g 'osr_novel_categories/<method>/log/(12.03.2021_|_32.570)/'
     :return:
     """
 

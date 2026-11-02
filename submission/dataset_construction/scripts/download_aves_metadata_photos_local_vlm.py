@@ -25,13 +25,13 @@ New metadata CSV columns added:
   vlm_pass, vlm_pose, vlm_reject_reason, dataset_pass
 
 Usage:
-    /disk/scratch_fast/chris_2/subspecies_env/bin/python3 \\
+    python \\
         download_aves_metadata_photos_local_vlm.py \\
         --aves_splits aves_splits.json \\
         --aves_controls aves_controls.json \\
         --model_id Qwen/Qwen2.5-VL-7B-Instruct \\
         --device cuda:2 \\
-        --hf_cache_dir /disk/scratch_big/chris_2/hf_cache
+        --hf_cache_dir ./hf_cache
 
 For the most powerful available model (AWQ-quantised 72B, fits in ~40 GB):
         --model_id Qwen/Qwen2.5-VL-72B-Instruct-AWQ
@@ -63,7 +63,7 @@ MD_BBOX_PADDING   = 0.071
 # ── VLM defaults ──────────────────────────────────────────────────────────────
 DEFAULT_MODEL_ID = 'Qwen/Qwen2.5-VL-7B-Instruct'
 DEFAULT_DEVICE   = 'cuda:0'
-DEFAULT_HF_CACHE = '/disk/scratch_big/chris_2/hf_cache'
+DEFAULT_HF_CACHE = 'hf_cache'
 
 VLM_PROMPT = """\
 You are reviewing a bird photo for dataset inclusion. Answer these 4 yes/no questions:
@@ -644,6 +644,8 @@ def ensure_metadata(taxon_id, metadata_dir, max_obs, existing_meta_dir):
 def setup_existing_species(taxon_id, existing_meta_dir, existing_photo_dir,
                             metadata_dir, photo_base):
     """Copy metadata and symlink photos from the subspecies pipeline if available."""
+    if existing_meta_dir is None or existing_photo_dir is None:
+        return False
     ex_meta   = os.path.join(existing_meta_dir, f'metadata_{taxon_id}_updated.csv')
     ex_photos = os.path.join(existing_photo_dir, str(taxon_id))
     if not os.path.exists(ex_meta) or not os.path.isdir(ex_photos):
@@ -939,12 +941,11 @@ def main():
     parser.add_argument('--aves_splits',   default='aves_splits.json')
     parser.add_argument('--aves_controls', default='aves_controls.json')
     parser.add_argument('--metadata_dir',  default='aves_metadata')
-    parser.add_argument('--photo_dir',     default='/disk/scratch_big/chris_2/aves_photos')
+    parser.add_argument('--photo_dir',     default='aves_photos')
     parser.add_argument('--crops_dir',     default='aves_photos_cropped')
-    parser.add_argument('--existing_metadata_dir',
-                        default='/disk/scratch_fast/chris_2/subspecies/data/2025_metadata_filtered')
-    parser.add_argument('--existing_photo_dir',
-                        default='/disk/scratch_big/chris_2/2025_species_photos/2025_photos')
+    # Optional: reuse metadata/photos already downloaded by an earlier pipeline run.
+    parser.add_argument('--existing_metadata_dir', default=None)
+    parser.add_argument('--existing_photo_dir', default=None)
     # Filter thresholds — defaults match test_megadetector.py
     parser.add_argument('--conf_threshold', type=float, default=MD_CONF_THRESHOLD)
     parser.add_argument('--min_bbox_px',    type=int,   default=MD_MIN_BBOX_PX)

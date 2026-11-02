@@ -195,7 +195,7 @@ if __name__ == "__main__":
         extract_features_func = extract_features_dino
         args.interpolation = 3
         args.crop_pct = 0.875
-        pretrain_path = '/work/sagar/pretrained_models/dino/dino_resnet50_pretrain.pth'
+        pretrain_path = '<PATH_TO_DINO_RESNET50_PRETRAIN_CHECKPOINT>'  # not used in the paper; set to use this backbone
 
         model = torch.hub.load('facebookresearch/dino:main', 'dino_resnet50', pretrained=False)
 
