@@ -55,6 +55,10 @@ from methods.estimate_k_hier.hier_eval_utils import (
     CLUSTER_METHODS,
 )
 from project_utils.cluster_utils import cluster_acc
+
+# Module-level random seed propagated to sklearn / pyclustering random_state
+# args. Overwritten from args.seed by main(). 0 reproduces historical behaviour.
+_RANDOM_STATE = 0
 from project_utils.general_utils import str2bool
 
 # pyclustering monkey-patch (same as estimate_k_xgmeans.py)
@@ -373,7 +377,7 @@ def run_spectral(
             try:
                 sc = SpectralClustering(
                     n_clusters=k_hat, affinity='precomputed',
-                    assign_labels='cluster_qr', random_state=0,
+                    assign_labels='cluster_qr', random_state=_RANDOM_STATE,
                 )
                 direct_preds[c] = sc.fit_predict(A.toarray()).astype(np.int64)
             except Exception as exc:
@@ -392,7 +396,7 @@ def run_spectral(
 def _apply_pca_to_feats(feats: np.ndarray, pca_dim: int):
     """Apply PCA to feats if pca_dim > 0 and pca_dim < D, else return feats as-is."""
     if pca_dim > 0 and pca_dim < feats.shape[1] and len(feats) > pca_dim:
-        pca = PCA(n_components=pca_dim, random_state=0)
+        pca = PCA(n_components=pca_dim, random_state=_RANDOM_STATE)
         reduced = pca.fit_transform(feats)
         return normalize(reduced, norm='l2', axis=1).astype(np.float32)
     return feats.astype(np.float32)
@@ -430,7 +434,7 @@ def estimate_k_xmeans_hier(feats: np.ndarray, kmax: int, pca_dim: int = 0) -> in
     X = _apply_pca_to_feats(feats, pca_dim)
     X_list = X.tolist()
 
-    initial_centers = kmeans_plusplus_initializer(X_list, 1, random_state=0).initialize()
+    initial_centers = kmeans_plusplus_initializer(X_list, 1, random_state=_RANDOM_STATE).initialize()
     xm = xmeans(
         X_list,
         initial_centers=initial_centers,
@@ -531,7 +535,7 @@ def run_xmeans(
         try:
             X = _apply_pca_to_feats(c_feats, best_pd)
             X_list = X.tolist()
-            initial_centers = _kpp(X_list, 1, random_state=0).initialize()
+            initial_centers = _kpp(X_list, 1, random_state=_RANDOM_STATE).initialize()
             xm = _xmeans(X_list, initial_centers=initial_centers,
                          kmax=kmax, criterion=1, ccore=True)
             xm.process()
@@ -600,6 +604,10 @@ def parse_args():
     # A3 (xmeans) args
     parser.add_argument('--pca_dim_candidates',   type=str, default='0,32,64,128',
                         help='Comma-separated PCA dims to try (0 = skip PCA)')
+    parser.add_argument('--seed', type=int, default=0,
+                        help='Random seed propagated to KMeans / Agglo / Spectral '
+                             '/ xmeans / PCA `random_state` (default 0 reproduces '
+                             'historical behaviour).')
     return parser.parse_args()
 
 
@@ -610,6 +618,10 @@ def parse_args():
 def main():
     args = parse_args()
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+
+    global _RANDOM_STATE
+    _RANDOM_STATE = int(args.seed)
+    print(f'Tuning K estimation random_state = {_RANDOM_STATE}')
 
     # Class splits
     args = get_class_splits(args)
