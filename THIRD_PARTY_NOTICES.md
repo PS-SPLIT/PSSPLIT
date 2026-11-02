@@ -10,6 +10,7 @@ reproduced below once; the Apache-2.0 text is in `LICENSES/Apache-2.0.txt`.
 | [SimGCD](https://github.com/CVMI-Lab/SimGCD) | MIT | Copyright (c) 2022 Xin Wen | `methods/simgcd_training/`, `methods/simgcd_hier_training/` |
 | [UNO](https://github.com/DonkeyShot21/UNO) | MIT | Copyright (c) 2021 Enrico Fini | `methods/uno_training/`, `methods/uno_hier_training/` |
 | [SelEx](https://github.com/SarahRastegar/SelEx) | MIT | Copyright (c) 2024 Sarah Rastegar | This repository started as a fork of SelEx: `config.py`, `data/` (dataset loaders, augmentations), `models/`, `project_utils/`, `methods/clustering/`, `methods/estimate_k/estimate_k.py`, `methods/contrastive_training/`, `methods/contrastive_hier_training/` |
+| [SINR](https://github.com/elijahcole/sinr) | MIT | Copyright (c) 2023 Elijah Cole | `ResidualFCNet` re-implemented in `scripts/compute_sinr_embeddings.py` |
 | [DINO](https://github.com/facebookresearch/dino) | Apache-2.0 | Copyright (c) Facebook, Inc. and its affiliates | `models/vision_transformer.py` |
 | [DINOv2](https://github.com/facebookresearch/dinov2) | Apache-2.0 | Copyright (c) Meta Platforms, Inc. and affiliates | `models/vision_transformer2.py` |
 
