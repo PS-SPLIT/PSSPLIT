@@ -1,13 +1,34 @@
-tqdm==4.65.0
-six==1.16.0
-tensorboard==2.12.1
+# PS-SPLIT / PSSPLIT runtime requirements.
+# Verified on Linux x86_64, Python 3.10, CUDA 11.7 driver or newer.
+#
+# Install into a clean Python 3.10 environment:
+#   conda create -n pssplit python=3.10 -y && conda activate pssplit
+#   pip install -r requirements.txt
+
+# --- core numerics (pin first: torch 2.0.0 requires numpy<2) ---
 numpy==1.24.3
-matplotlib==3.8.0
-pandas==1.5.3
-Pillow==10.0.1
-scikit_learn==1.3.0
 scipy==1.11.3
-timm==0.9.10
-torch==2.0.0
+pandas==1.5.3
+scikit-learn==1.3.0          # >=1.3 required: sklearn.cluster.HDBSCAN
+matplotlib==3.8.0
+Pillow==10.0.1
+six==1.16.0
+tqdm==4.65.0
+
+# --- deep learning ---
+torch==2.0.0                 # cu117 wheels from PyPI
 torchvision==0.15.1
-kmeans-pytorch==0.3.0
+timm==0.9.10
+xformers==0.0.19             # REQUIRED: models/vision_transformer2.py does
+                             # `from xformers.ops import SwiGLU` at import time.
+                             # 0.0.19 is the only release pinned to torch 2.0.0.
+
+# --- logging ---
+tensorboard==2.12.1
+
+# --- clustering / K-estimation ---
+kmeans-pytorch==0.3          # used by SelEx contrastive training
+pyclustering==0.10.1.2       # REQUIRED for the x-means / g-means K estimators
+
+# --- optional: only imported lazily by methods/estimate_k/estimate_k_hdbscan.py ---
+optuna==4.8.0
