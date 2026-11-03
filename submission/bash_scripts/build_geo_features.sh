@@ -115,6 +115,6 @@ echo "Done. Feature folders under $FEATURE_ROOT:"
 for DATASET in $DATASETS; do
     for M in sinr_loc vit_dino_sinr_loc selex_sinr_loc; do
         D="$FEATURE_ROOT/${M}_${DATASET}"
-        [ -d "$D" ] && echo "  $D  ($(count_npy "$D") files)"
+        if [ -d "$D" ]; then echo "  $D  ($(count_npy "$D") files)"; fi
     done
 done
