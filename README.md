@@ -223,7 +223,8 @@ penultimate embedding) and can embed locations with another SINR checkpoint.
 
 - **Code**: MIT (`LICENSE`). Code adapted from GCD, SimGCD, UNO, SelEx (MIT) and DINO / DINOv2
   (Apache-2.0) keeps its upstream licence; see `THIRD_PARTY_NOTICES.md`.
-- **PS-SPLIT annotations, metadata, splits and coarse maps**: CC BY-NC 4.0.
+- **PS-SPLIT annotations, metadata, splits and coarse maps**: CC BY-NC 4.0, including the annotation files
+  in this repository (`submission/dataset_construction/data/*.csv`, `submission/data/coarse_labels/*.json`).
 
 PS-SPLIT is intended for benchmarking category discovery. It is not a source of taxonomic decisions.
 

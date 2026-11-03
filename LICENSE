@@ -19,13 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
--------------------------------------------------------------------------------
-Scope: the MIT licence above covers the source code in this repository.
-Parts of the code are adapted from third-party projects that keep their own
-licences; see THIRD_PARTY_NOTICES.md.
-The PS-SPLIT annotations shipped here (submission/dataset_construction/data/*.csv
-and submission/data/coarse_labels/*.json) are released under the Creative
-Commons Attribution-NonCommercial 4.0 International licence (CC BY-NC 4.0),
-like the rest of the PS-SPLIT dataset on Kaggle
-(https://www.kaggle.com/datasets/pssplits/ps-splits).
